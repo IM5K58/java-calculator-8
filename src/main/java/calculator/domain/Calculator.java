@@ -4,24 +4,20 @@ import calculator.IO.Input;
 import calculator.IO.Output;
 import calculator.domain.Separator;
 import calculator.domain.InputValidator;
+import java.util.Arrays;
 
 public class Calculator {
     public int Calculate(String input){ //계산 과정 총괄, 검증 후 덧셈 계산 결과 반환
 
         Separator separator = new Separator();
         InputValidator validator = new InputValidator();
-
-        if(!validator.isRight(input)){
-            throw new IllegalArgumentException("잘못된 문자열입니다.");
-        }
-
         int sum = 0;
 
-        separator.add(",");
-        separator.add(":");
+        System.out.println("나눠진 문자열 확인:" + Arrays.toString(separator.separate(input)));
 
-        // 계산과정 기술
-
+        for(String s : separator.separate(input)){
+            sum += Integer.parseInt(s.trim());
+        }
         return sum;
 
     }
@@ -33,14 +29,7 @@ public class Calculator {
 
         output.printStart();
         String newInput = input.newInput();
-
-        try {
-            int result = Calculate(newInput);
-            output.printResult(result);
-        } catch (IllegalArgumentException e) {
-            // 계산 도중 발생한 예외 처리
-            System.exit(1);
-        }
+        output.printResult(Calculate(newInput));
 
     }
 }
