@@ -9,10 +9,17 @@ public class InputValidator { //검증
         }
     }
 
-    public boolean isRight(String input){ //입력한 문자열이 정상적인지 확인
-        Separator separator = new Separator();
+    public void isRight(String[] list){ //입력한 문자열이 정상적인지 확인
 
-        //문자열 전체를 체크할 것인가?
-        return false;
+        for(String s : list){
+            s = s.trim();
+            try{
+                Integer.parseInt(s);
+                if(Integer.parseInt(s) < 0) throw new IllegalArgumentException("잘못된 문자열이 입력되었습니다.");
+
+            }catch(NumberFormatException e){
+                throw new IllegalArgumentException("입력되지 않은 구분자입니다.");
+            }
+        }
     }
 }

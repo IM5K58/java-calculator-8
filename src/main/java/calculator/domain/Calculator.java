@@ -13,9 +13,12 @@ public class Calculator {
         InputValidator validator = new InputValidator();
         int sum = 0;
 
-        System.out.println("나눠진 문자열 확인:" + Arrays.toString(separator.separate(input)));
+        String[] sep_list = separator.separate(input);
 
-        for(String s : separator.separate(input)){
+
+        validator.isRight(sep_list);
+
+        for(String s : sep_list){
             sum += Integer.parseInt(s.trim());
         }
         return sum;
@@ -29,7 +32,10 @@ public class Calculator {
 
         output.printStart();
         String newInput = input.newInput();
-        output.printResult(Calculate(newInput));
+
+        int result = Calculate(newInput);
+        output.printResult(result);  // 성공한 경우에만 출력
+
 
     }
 }
