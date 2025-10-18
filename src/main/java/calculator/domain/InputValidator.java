@@ -12,12 +12,15 @@ public class InputValidator { //검증
             throw new IllegalArgumentException("숫자만 입력되었습니다.");
         }
 
-        //그러니께, 빈 문자열을 받은게 맨 앞이나 맨 뒤에 있으면 괜찮은데, 중간에 껴있으면 그것은 문제올시다.
-        //enhanced for문 말고 그냥 for로 교체 필요
-        for (String s : list) {
-            s = s.trim();
+        //만약 빈 문자열이 맨 끝이나 맨 앞에 온게 아니라면 예외
+        for(int i = 0; i < list.length; i++){
+            if((i >0 && i < list.length-1) && list[i].isEmpty()){
+                throw new IllegalArgumentException("구분자가 연속되어 사용되었습니다.");
+            }
+            String s = list[i].trim();
             sep_check(s);
         }
+
     }
 
     private static void sep_check(String s) {
