@@ -8,11 +8,36 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ApplicationTest extends NsTest {
+
+    @Test
+    void 테스트() {
+        assertSimpleTest(() -> {
+            run("\n");
+            assertThat(output()).contains("결과 : 0");
+        });
+    }
+
+    @Test
+    void 테스트2() {
+        assertSimpleTest(() -> {
+            run("3:");
+            assertThat(output()).contains("결과 : 3");
+        });
+    }
+
+    @Test
+    void 테스트3() {
+        assertSimpleTest(() -> {
+            run(":3");
+            assertThat(output()).contains("결과 : 3");
+        });
+    }
+
     @Test
     void 커스텀_구분자_사용() {
         assertSimpleTest(() -> {
-            run("//;\\n1");
-            assertThat(output()).contains("결과 : 1");
+            run("//;\\n1,2;4");
+            assertThat(output()).contains("결과 : 7");
         });
     }
     @Test
@@ -31,6 +56,7 @@ class ApplicationTest extends NsTest {
         });
     }
 
+
     @Test
     void 예외_테스트() {
         assertSimpleTest(() ->
@@ -43,6 +69,52 @@ class ApplicationTest extends NsTest {
     void 예외_테스트2() {
         assertSimpleTest(() ->
                 assertThatThrownBy(() -> runException("//;;\\n2;;22"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 예외_테스트3() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("#2,3:4"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 예외_테스트4() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("3:-2,4"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 예외_테스트5() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("423"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+    @Test
+    void 예외_테스트6() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("-423"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+    @Test
+    void 예외_테스트7() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("#423"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 예외_테스트8() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("1,,2"))
                         .isInstanceOf(IllegalArgumentException.class)
         );
     }
