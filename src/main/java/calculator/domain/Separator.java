@@ -7,7 +7,7 @@ public class Separator { //구분자 관련 클래스
 
     public String[] separate(String input){ //검증 진행 후 괜찮으면
         InputValidator validator = new InputValidator();
-        String pattern = "[,: ]";
+        String pattern = "[,:]";
 
         if (input.startsWith("//")) {
             int index = input.indexOf("\\n");
