@@ -119,6 +119,14 @@ class ApplicationTest extends NsTest {
         );
     }
 
+    @Test
+    void 예외_테스트9() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("//;\\n1;;3,4"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
 
     @Override
     public void runMain() {
