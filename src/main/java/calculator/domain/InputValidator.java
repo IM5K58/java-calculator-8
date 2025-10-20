@@ -9,7 +9,6 @@ public class InputValidator { //검증
     }
 
     public void isRight(String[] list) { //입력한 문자열이 정상적인지 확인
-        only_num_check(list);
         list_check(list);
     }
 
@@ -20,12 +19,6 @@ public class InputValidator { //검증
             }
             String s = list[i].trim();
             sep_check(s);
-        }
-    }
-
-    private void only_num_check(String[] list) { //숫자만 입력되었는지 검증
-        if (list.length == 1 && Integer.parseInt(list[0]) >0){
-            throw new IllegalArgumentException("숫자만 입력되었습니다.");
         }
     }
 
